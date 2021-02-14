@@ -28,27 +28,13 @@ namespace WebApiWithRoles
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             // IdentityModelEventSource.ShowPII = true;
 
-            // This is required to be instantiated before the OpenIdConnectOptions starts getting configured.
-            // By default, the claims mapping will map claim names in the old format to accommodate older SAML applications.
-            // 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role' instead of 'roles'
-            // This flag ensures that the ClaimsIdentity claims collection will be built from the claims in the token
-            // JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+            services.AddMicrosoftIdentityWebApiAuthentication(Configuration)
+                .EnableTokenAcquisitionToCallDownstreamApi()
+                .AddMicrosoftGraph("https://graph.microsoft.com/beta", "user.read Directory.Read.All User.ReadBasic.All")
+                .AddInMemoryTokenCaches();
 
-            // Adds Microsoft Identity platform (AAD v2.0) support to protect this Api
-            // services.AddMicrosoftIdentityWebApiAuthentication(Configuration);
-
-            services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-                 .AddMicrosoftIdentityWebApp(options =>
-                 {
-                     Configuration.Bind("AzureAd", options);
-                     options.AllowWebApiToBeAuthorizedByACL = true;
-
-                 }, options => { Configuration.Bind("AzureAd", options); });
-
-            // The following lines code instruct the asp.net core middleware to use the data in the "roles" claim in the Authorize attribute and User.IsInrole()
             services.Configure<OpenIdConnectOptions>(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
-                // The claim in the Jwt token where App roles are available.
                 options.TokenValidationParameters.RoleClaimType = "roles";
                 options.TokenValidationParameters.NameClaimType = "name";
             });
@@ -105,21 +91,6 @@ namespace WebApiWithRoles
                 //    p.RequireClaim("roles", "web-api-with-roles-admin");
                 //});
 
-                //policies.AddPolicy("ValidateAccessTokenPolicy", validateAccessTokenPolicy =>
-                //{
-                //    validateAccessTokenPolicy.RequireClaim("scp", "access_as_user");
-
-                //    // Validate id of application for which the token was created
-                //    // In this case the UI application 
-                //    validateAccessTokenPolicy.RequireClaim("azp", "5c201b60-89f6-47d8-b2ef-9d9fe2a42751");
-
-                //    // only allow tokens which used "Private key JWT Client authentication"
-                //    // // https://docs.microsoft.com/en-us/azure/active-directory/develop/access-tokens
-                //    // Indicates how the client was authenticated. For a public client, the value is "0". 
-                //    // If client ID and client secret are used, the value is "1". 
-                //    // If a client certificate was used for authentication, the value is "2".
-                //    validateAccessTokenPolicy.RequireClaim("azpacr", "1");
-                //});
             });
 
             services.AddControllers(options =>
