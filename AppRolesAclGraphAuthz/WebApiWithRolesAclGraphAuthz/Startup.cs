@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Logging;
 
 namespace WebApiWithRolesAclGraphAuthz
 {
@@ -26,7 +27,7 @@ namespace WebApiWithRolesAclGraphAuthz
         public void ConfigureServices(IServiceCollection services)
         {
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
-            // IdentityModelEventSource.ShowPII = true;
+            IdentityModelEventSource.ShowPII = true;
 
             services.AddMicrosoftIdentityWebApiAuthentication(Configuration)
                 .EnableTokenAcquisitionToCallDownstreamApi()

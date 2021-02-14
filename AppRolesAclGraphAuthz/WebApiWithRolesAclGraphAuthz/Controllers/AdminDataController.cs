@@ -5,7 +5,8 @@ using Microsoft.Identity.Web;
 
 namespace WebApiWithRolesAclGraphAuthz.Controllers
 {
-    [Authorize(Policy = "p-web-api-with-roles-admin")]
+    [Authorize]
+    // [Authorize(Policy = "p-web-api-with-roles-admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class AdminDataController : ControllerBase
