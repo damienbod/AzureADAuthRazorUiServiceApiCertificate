@@ -26,7 +26,7 @@ export class UserApiCallComponent implements OnInit {
   callApi() {
     this.httpRequestRunning = true;
     this.dataFromAzureProtectedApi$ = this.httpClient
-      .get('https://localhost:44390/DelegatedUserApiCalls')
+      .get('https://localhost:44323/api/userData')
       .pipe(finalize(() => (this.httpRequestRunning = false)));
   }
 }

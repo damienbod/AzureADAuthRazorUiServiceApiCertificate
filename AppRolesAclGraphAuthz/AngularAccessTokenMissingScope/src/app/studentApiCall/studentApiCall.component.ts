@@ -27,7 +27,7 @@ export class StudentApiCallComponent implements OnInit {
   callApi() {
     this.httpRequestRunning = true;
     this.dataFromAzureProtectedApi$ = this.httpClient
-      .get('https://localhost:44390/DirectApi')
+      .get('https://localhost:44323/api/studentData')
       .pipe(finalize(() => (this.httpRequestRunning = false)));
   }
 }

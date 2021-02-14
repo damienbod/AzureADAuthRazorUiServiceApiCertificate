@@ -25,7 +25,7 @@ export class AdminApiCallComponent implements OnInit {
   callApi() {
     this.httpRequestRunning = true;
     this.dataFromAzureProtectedApi$ = this.httpClient
-      .get('https://localhost:44390/ServiceApiCalls')
+      .get('https://localhost:44323/api/adminData')
       .pipe(finalize(() => (this.httpRequestRunning = false)));
   }
 }

@@ -1,4 +1,3 @@
-import { DirectApiCallComponent } from './directApiCall/directApiCall.component';
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -48,10 +47,9 @@ export function configureAuth(oidcConfigService: OidcConfigService) {
     RouterModule.forRoot([
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'home', component: HomeComponent },
-    { path: 'directApiCall', component: DirectApiCallComponent, canActivate: [AuthorizationGuard] },
-    { path: 'graphApiCall', component: GraphApiCallComponent, canActivate: [AuthorizationGuard] },
-    { path: 'applicationApiCall', component: ApplicationApiCallComponent, canActivate: [AuthorizationGuard] },
-    { path: 'delegatedApiCall', component: DelegatedApiCallComponent, canActivate: [AuthorizationGuard] },
+    { path: 'adminApiCall', component: AdminApiCallComponent, canActivate: [AuthorizationGuard] },
+    { path: 'studentApiCall', component: StudentApiCallComponent, canActivate: [AuthorizationGuard] },
+    { path: 'userApiCall', component: UserApiCallComponent, canActivate: [AuthorizationGuard] },
     { path: 'unauthorized', component: UnauthorizedComponent },
   ], { relativeLinkResolution: 'legacy' }),
     AuthModule.forRoot(),
