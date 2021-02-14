@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
-namespace WebApiWithRoles
+namespace WebApiWithRolesAclGraphAuthz
 {
     public class Startup
     {
@@ -39,6 +39,22 @@ namespace WebApiWithRoles
                 options.TokenValidationParameters.NameClaimType = "name";
             });
 
+            services.AddScoped<GraphApiClientService>();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllSpaOrigin",
+                    builder =>
+                    {
+                        builder
+                            .AllowCredentials()
+                            .WithOrigins(
+                                "https://localhost:4200")
+                            .SetIsOriginAllowedToAllowWildcardSubdomains()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });
+            });
             services.AddSwaggerGen(c =>
             {
                 // add JWT Authentication
@@ -117,6 +133,8 @@ namespace WebApiWithRoles
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Web API with roles");
                 c.RoutePrefix = string.Empty;
             });
+
+            app.UseCors("AllSpaOrigin");
 
             app.UseHttpsRedirection();
 

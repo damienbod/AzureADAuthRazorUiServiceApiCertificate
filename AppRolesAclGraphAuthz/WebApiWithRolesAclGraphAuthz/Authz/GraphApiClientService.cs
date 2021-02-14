@@ -2,7 +2,7 @@
 using Microsoft.Graph;
 using System.Threading.Tasks;
 
-namespace AspNetCoreAzureStorage
+namespace WebApiWithRolesAclGraphAuthz
 {
     public class GraphApiClientService
     {
