@@ -1,4 +1,5 @@
 ﻿@page "/"
+@model BlazorAzureADWithApis.Server.Pages._HostModel
 @namespace BlazorAzureADWithApis.Pages
 @using BlazorAzureADWithApis.Client
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
@@ -11,6 +12,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blazor BFF AAD Cookie 2021" />
+    <meta property="og:url" content="https://damienbod.com" />
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/3442158?s=400&v=4">
+    <meta property="og:image:height" content="384" />
+    <meta property="og:image:width" content="384" />
+    <meta property="og:site_name" content="@Model.SiteName" />
+    <meta property="og:description" content="@Model.PageDescription" />
     <title>Blazor AAD Cookie</title>
     <base href="~/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
